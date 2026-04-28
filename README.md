@@ -1,6 +1,3 @@
-Aqui está uma estrutura de **README.md** profissional e moderna para o seu projeto, focada em destacar tanto o design elegante quanto a stack técnica utilizada.
-
----
 
 # 📦 Nexus | Gestão de Produtos
 
