@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus | Categorias</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --sidebar-bg: #0f172a;
+            --bg-light: #f8fafc;
+            --glass-white: rgba(255, 255, 255, 0.8);
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.3s ease; }
+        body { background-color: var(--bg-light); font-family: 'Plus Jakarta Sans', sans-serif; display: flex; min-height: 100vh; }
+
+        /* --- SIDEBAR --- */
+        nav { width: 260px; background: var(--sidebar-bg); color: white; display: flex; flex-direction: column; padding: 30px 20px; position: fixed; height: 100vh; }
+        .nav-brand { font-weight: 800; font-size: 1.5rem; margin-bottom: 50px; display: flex; align-items: center; gap: 10px; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-link { padding: 15px; color: #94a3b8; text-decoration: none; border-radius: 12px; margin-bottom: 5px; display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .nav-link:hover { background: rgba(255, 255, 255, 0.05); color: white; }
+        .nav-link.active { background: rgba(255, 255, 255, 0.05); color: white; }
+        .nav-link.active i { color: #a855f7; }
+
+        /* --- MAIN CONTENT --- */
+        main { margin-left: 260px; padding: 40px; width: calc(100% - 260px); }
+
+        .header-flex { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 40px; }
+        .header-title h1 { font-size: 2rem; font-weight: 800; letter-spacing: -1px; }
+        .header-title p { color: var(--text-gray); }
+
+        /* --- CARD DE CADASTRO RÁPIDO --- */
+        .add-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 24px;
+            border: 1px solid white;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 40px;
+        }
+
+        .form-row { display: grid; grid-template-columns: 1fr 2fr auto; gap: 15px; align-items: end; }
+        .input-group { display: flex; flex-direction: column; gap: 8px; }
+        .input-group label { font-weight: 700; font-size: 0.85rem; color: var(--text-dark); }
+        
+        .input-control {
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            outline: none;
+            font-family: inherit;
+        }
+
+        .input-control:focus { border-color: #a855f7; box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.1); }
+
+        .btn-add-cat {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 12px;
+            border: none;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            height: 45px;
+        }
+
+        /* --- TABELA --- */
+        .content-card {
+            background: var(--glass-white);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            border: 1px solid white;
+            box-shadow: var(--shadow-lg);
+            padding: 30px;
+        }
+
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 15px; color: var(--text-gray); font-size: 0.75rem; text-transform: uppercase; border-bottom: 2px solid #f1f5f9; }
+        td { padding: 18px 15px; border-bottom: 1px solid #f1f5f9; }
+        
+        .cat-icon {
+            width: 35px; height: 35px; border-radius: 10px;
+            background: #f3e8ff; color: #7e22ce;
+            display: flex; align-items: center; justify-content: center; font-weight: 800;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-brand"><i class="fas fa-boxes-stacked"></i> <span>NEXUS</span></div>
+        <a href="/" class="nav-link"><i class="fas fa-chart-line"></i> <span>Dashboard</span></a>
+        <a href="/produtos/cadastro" class="nav-link"><i class="fas fa-plus-circle"></i> <span>Novo Produto</span></a>
+        <a href="/categorias" class="nav-link active"><i class="fas fa-tags"></i> <span>Categorias</span></a>
+    </nav>
+
+    <main>
+        <div class="header-flex">
+            <div class="header-title">
+                <h1>Categorias</h1>
+                <p>Gerencie as classificações do seu estoque.</p>
+            </div>
+        </div>
+
+        <section class="add-card">
+            <form action="/categorias/salvar" method="POST" class="form-row">
+                <div class="input-group">
+                    <label>Nome da Categoria</label>
+                    <input type="text" name="nome" class="input-control" placeholder="Ex: Periféricos" required>
+                </div>
+                <div class="input-group">
+                    <label>Descrição (Opcional)</label>
+                    <input type="text" name="descricao" class="input-control" placeholder="Ex: Mouses, teclados e monitores">
+                </div>
+                <button type="submit" class="btn-add-cat">
+                    <i class="fas fa-plus"></i> Adicionar
+                </button>
+            </form>
+        </section>
+
+<section class="content-card">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Categoria</th>
+                <th>Descrição</th>
+                <th>Qtd. Produtos</th>
+                <th style="text-align: right; padding-right: 25px;">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cat in categorias %}
+            <tr>
+                <td>#{{ cat.id }}</td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 12px;">
+                        <div class="cat-icon" style="background: var(--primary-gradient); color: white;">
+                            {{ cat.nome[0] | upper }}
+                        </div>
+                        <strong>{{ cat.nome }}</strong>
+                    </div>
+                </td>
+                <td style="color: var(--text-gray); font-size: 0.9rem;">
+                    {{ cat.descricao if cat.descricao else '---' }}
+                </td>
+                <td>
+                    <span style="font-weight: 700; color: #6366f1; background: #e0e7ff; padding: 4px 10px; border-radius: 8px; font-size: 0.85rem;">
+                        {{ cat.produtos|length }} itens
+                    </span>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 20px; justify-content: flex-end; align-items: center; padding-right: 10px;">
+                        <a href="/categorias/editar/{{ cat.id }}" style="color: var(--text-gray); text-decoration: none;">
+                            <i class="fas fa-edit" title="Editar"></i>
+                        </a>
+                        
+                        <form action="/categorias/deletar/{{ cat.id }}" method="POST" style="display: inline;" onsubmit="return confirm('Tem certeza que deseja excluir esta categoria? Isso pode afetar os produtos vinculados.')">
+                            <button type="submit" style="background: none; border: none; color: #fda4af; cursor: pointer; padding: 0; font-size: 1rem;">
+                                <i class="fas fa-trash-alt" title="Excluir"></i>
+                            </button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" style="text-align: center; padding: 60px; color: var(--text-gray);">
+                    <i class="fas fa-folder-open" style="font-size: 2rem; display: block; margin-bottom: 10px; opacity: 0.3;"></i>
+                    Nenhuma categoria encontrada.
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
+</body>
+</html>

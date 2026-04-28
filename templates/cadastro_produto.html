@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus | Novo Produto</title>
+    <title>Nexus | Gestão de Produtos</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -22,78 +22,35 @@
         * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.2s ease; }
         body { background-color: var(--bg-light); font-family: 'Plus Jakarta Sans', sans-serif; display: flex; min-height: 100vh; }
 
-        /* --- SIDEBAR (Mantida para consistência) --- */
         nav { width: 260px; background: var(--sidebar-bg); color: white; display: flex; flex-direction: column; padding: 30px 20px; position: fixed; height: 100vh; }
         .nav-brand { font-weight: 800; font-size: 1.5rem; margin-bottom: 50px; display: flex; align-items: center; gap: 10px; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .nav-link { padding: 15px; color: #94a3b8; text-decoration: none; border-radius: 12px; margin-bottom: 5px; display: flex; align-items: center; gap: 12px; font-weight: 600; }
-        .nav-link:hover { background: rgba(255, 255, 255, 0.05); color: white; }
+        .nav-link:hover, .nav-link.active { background: rgba(255, 255, 255, 0.05); color: white; }
 
-        /* --- MAIN CONTENT --- */
-        main { margin-left: 260px; padding: 40px; width: calc(100% - 260px); display: flex; justify-content: center; }
+        main { margin-left: 260px; padding: 40px; width: calc(100% - 260px); display: flex; flex-direction: column; align-items: center; }
         
-        .form-container {
-            width: 100%;
-            max-width: 700px;
-            background: var(--glass-white);
-            backdrop-filter: blur(10px);
-            padding: 40px;
-            border-radius: 28px;
-            border: 1px solid white;
-            box-shadow: var(--shadow-lg);
-        }
-
+        .form-container { width: 100%; max-width: 700px; background: var(--glass-white); backdrop-filter: blur(10px); padding: 40px; border-radius: 28px; border: 1px solid white; box-shadow: var(--shadow-lg); margin-bottom: 40px; }
         .form-header { margin-bottom: 30px; }
         .form-header h1 { font-size: 1.75rem; font-weight: 800; color: var(--text-dark); }
-        .form-header p { color: var(--text-gray); margin-top: 5px; }
 
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 0.9rem; color: var(--text-dark); }
         
-        .input-control {
-            width: 100%;
-            padding: 14px 18px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            background: white;
-            font-family: inherit;
-            font-size: 1rem;
-            color: var(--text-dark);
-        }
-
-        .input-control:focus {
-            outline: none;
-            border-color: #6366f1;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-        }
-
-        select.input-control { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%2364748b'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 15px center; background-size: 18px; }
+        .input-control { width: 100%; padding: 14px 18px; border-radius: 12px; border: 1px solid var(--border-color); background: white; font-family: inherit; font-size: 1rem; }
+        .input-control:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
 
         .btn-group { display: flex; gap: 15px; margin-top: 35px; }
+        .btn-submit { background: var(--primary-gradient); color: white; padding: 15px 30px; border-radius: 14px; border: none; font-weight: 700; cursor: pointer; flex: 2; box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3); }
+        .btn-cancel { background: #f1f5f9; color: var(--text-gray); padding: 15px 30px; border-radius: 14px; text-decoration: none; font-weight: 700; text-align: center; flex: 1; }
+
+        /* Tabela de Produtos */
+        .content-card { width: 100%; max-width: 700px; background: var(--glass-white); padding: 30px; border-radius: 24px; border: 1px solid white; box-shadow: var(--shadow-lg); }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 15px; color: var(--text-gray); font-size: 0.75rem; text-transform: uppercase; border-bottom: 2px solid #f1f5f9; }
+        td { padding: 15px; border-bottom: 1px solid #f1f5f9; font-weight: 500; }
         
-        .btn-submit {
-            background: var(--primary-gradient);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 14px;
-            border: none;
-            font-weight: 700;
-            cursor: pointer;
-            flex: 2;
-            box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.3);
-        }
-
-        .btn-cancel {
-            background: #f1f5f9;
-            color: var(--text-gray);
-            padding: 15px 30px;
-            border-radius: 14px;
-            text-decoration: none;
-            font-weight: 700;
-            text-align: center;
-            flex: 1;
-        }
-
-        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 15px 20px -3px rgba(99, 102, 241, 0.4); }
+        .btn-delete { background: none; border: none; color: #fda4af; cursor: pointer; font-size: 1rem; transition: color 0.2s; }
+        .btn-delete:hover { color: #f43f5e; }
     </style>
 </head>
 <body>
@@ -109,37 +66,61 @@
         <div class="form-container">
             <header class="form-header">
                 <h1>Cadastrar Produto</h1>
-                <p>Preencha as informações para adicionar um item ao estoque.</p>
+                <p>Adicione novos itens ao seu inventário Nexus.</p>
             </header>
 
             <form action="/produtos/salvar" method="POST">
                 <div class="form-group">
-                    <label for="nome">Nome do Produto</label>
-                    <input type="text" id="nome" name="nome" class="input-control" placeholder="Ex: Teclado Mecânico RGB" required>
+                    <label>Nome do Produto</label>
+                    <input type="text" name="nome" class="input-control" placeholder="Ex: Teclado Mecânico" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="marca">Marca</label>
-                    <input type="text" id="marca" name="marca" class="input-control" placeholder="Ex: Logitech" required>
+                    <label>Marca</label>
+                    <input type="text" name="marca" class="input-control" placeholder="Ex: Razer" required>
                 </div>
-
                 <div class="form-group">
-                    <label for="categoria_id">Categoria</label>
-                    <select id="categoria_id" name="categoria_id" class="input-control" required>
-                        <option value="" disabled selected>Selecione uma categoria...</option>
+                    <label>Categoria</label>
+                    <select name="categoria_id" class="input-control" required>
+                        <option value="" disabled selected>Selecione...</option>
                         {% for cat in categorias %}
                         <option value="{{ cat.id }}">{{ cat.nome }}</option>
                         {% endfor %}
                     </select>
                 </div>
-
                 <div class="btn-group">
                     <a href="/" class="btn-cancel">Cancelar</a>
                     <button type="submit" class="btn-submit">Salvar Produto</button>
                 </div>
             </form>
         </div>
-    </main>
 
+        <div class="content-card">
+            <h3 style="margin-bottom: 20px; font-weight: 800;">Produtos Cadastrados</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Marca</th>
+                        <th style="text-align: right;">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in produtos %}
+                    <tr>
+                        <td>{{ p.nome }}</td>
+                        <td>{{ p.marca }}</td>
+                        <td style="text-align: right;">
+                            <form action="/produtos/deletar/{{ p.id }}" method="POST" onsubmit="return confirm('Deletar produto?')">
+                                <button type="submit" class="btn-delete">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
 </body>
 </html>
