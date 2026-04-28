@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AAPM | Gestão de Produtos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Mantendo seu estilo original que é excelente */
+        :root {
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --sidebar-bg: #0f172a;
+            --bg-light: #f8fafc;
+            --glass-white: rgba(255, 255, 255, 0.8);
+            --accent: #10b981;
+            --text-dark: #1e293b;
+            --text-gray: #64748b;
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: all 0.3s ease; }
+        body { background-color: var(--bg-light); font-family: 'Plus Jakarta Sans', sans-serif; display: flex; min-height: 100vh; color: var(--text-dark); }
+
+        nav { width: 260px; background: var(--sidebar-bg); color: white; display: flex; flex-direction: column; padding: 30px 20px; position: fixed; height: 100vh; z-index: 100; }
+        .nav-brand { font-weight: 800; font-size: 1.5rem; margin-bottom: 50px; display: flex; align-items: center; gap: 10px; background: var(--primary-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent;}
+        .nav-link { padding: 15px; color: #94a3b8; text-decoration: none; border-radius: 12px; margin-bottom: 5px; display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .nav-link:hover, .nav-link.active { background: rgba(255, 255, 255, 0.05); color: white; }
+        .nav-link.active i { color: #6366f1; }
+
+        main { margin-left: 260px; padding: 40px; width: calc(100% - 260px); }
+        .header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+        .welcome-msg h1 { font-size: 2rem; font-weight: 800; letter-spacing: -1px; }
+        .welcome-msg p { color: var(--text-gray); }
+
+        .btn-add { background: var(--primary-gradient); color: white; padding: 14px 28px; border-radius: 14px; text-decoration: none; font-weight: 700; box-shadow: 0 10px 15px -3px rgba(99, 102, 241, 0.4); display: flex; align-items: center; gap: 8px; }
+        .btn-add:hover { transform: translateY(-3px); box-shadow: 0 15px 20px -3px rgba(99, 102, 241, 0.5); }
+
+        .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-bottom: 40px; }
+        .stat-card { background: var(--glass-white); backdrop-filter: blur(10px); padding: 25px; border-radius: 24px; border: 1px solid white; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 20px; }
+        .stat-icon { width: 60px; height: 60px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; }
+        .icon-blue { background: #e0e7ff; color: #4338ca; }
+        .icon-green { background: #dcfce7; color: #15803d; }
+        .icon-purple { background: #f3e8ff; color: #7e22ce; }
+
+        .content-card { background: var(--glass-white); backdrop-filter: blur(10px); border-radius: 24px; border: 1px solid white; box-shadow: var(--shadow-lg); padding: 30px; }
+        table { width: 100%; border-collapse: collapse; }
+        th { text-align: left; padding: 15px; color: var(--text-gray); font-size: 0.75rem; text-transform: uppercase; border-bottom: 2px solid #f1f5f9; }
+        td { padding: 20px 15px; border-bottom: 1px solid #f1f5f9; font-weight: 500; }
+        .item-name { display: flex; align-items: center; gap: 12px; font-weight: 700; color: #334155; }
+        .item-img { width: 35px; height: 35px; border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem; }
+        .badge { background: #f0fdf4; color: #166534; padding: 6px 12px; border-radius: 10px; font-size: 0.75rem; font-weight: 800; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-brand"><i class="fas fa-boxes-stacked"></i> <span>AAPM</span></div>
+        <a href="#" class="nav-link active"><i class="fas fa-chart-line"></i> <span>Dashboard</span></a>
+        <a href="/produtos/cadastro" class="nav-link"><i class="fas fa-plus-circle"></i> <span>Novo Produto</span></a>
+        <a href="/categorias" class="nav-link"><i class="fas fa-tags"></i> <span>Categorias</span></a>
+        <a href="#" class="nav-link" style="margin-top: auto;"><i class="fas fa-cog"></i> <span>Configurações</span></a>
+    </nav>
+
+<main>
+    <header class="header-top">
+        <div class="welcome-msg">
+            <h1>Gestão de Estoque 👋</h1>
+            <p>Monitore seus produtos e categorias em tempo real.</p>
+        </div>
+        <a href="/produtos/cadastro" class="btn-add"><i class="fas fa-plus"></i> Novo Produto</a>
+    </header>
+
+    <section class="stats-container">
+        <div class="stat-card">
+            <div class="stat-icon icon-blue"><i class="fas fa-box"></i></div>
+            <div class="stat-info">
+                <h2>{{ produtos|length }}</h2>
+                <span>Produtos Totais</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon icon-green"><i class="fas fa-tag"></i></div>
+            <div class="stat-info">
+                <h2>{{ categorias|length }}</h2>
+                <span>Categorias</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon icon-purple"><i class="fas fa-warehouse"></i></div>
+            <div class="stat-info">
+                <h2>Ativo</h2> 
+                <span>Status do Sistema</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-card">
+        <h3>Lista de Produtos</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Marca</th>
+                    <th>Categoria</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for p in produtos %}
+                <tr>
+                    <td>
+                        <div class="item-name">
+                            <div class="item-img" style="background: var(--primary-gradient);">
+                                {{ p.nome[0] | upper }}
+                            </div>
+                            <strong>{{ p.nome }}</strong>
+                        </div>
+                    </td>
+                    <td>{{ p.marca }}</td>
+                    <td>
+                        <span style="color: var(--text-gray);">
+                            {{ p.categoria.nome }}
+                        </span>
+                    </td>
+                    <td><span class="badge">Em Estoque</span></td>
+                    <td>
+                        <div style="display: flex; gap: 15px;">
+                            <a href="/produtos/editar/{{ p.id }}" style="color: var(--text-gray);"><i class="fas fa-edit"></i></a>
+                            <i class="fas fa-trash" style="color: #cbd5e1; cursor: pointer;"></i>
+                        </div>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 50px; color: var(--text-gray);">
+                        Nenhum produto cadastrado.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </section>
+</main>
+</body>
+</html>
