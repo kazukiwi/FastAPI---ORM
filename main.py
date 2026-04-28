@@ -18,7 +18,8 @@ def exibir_home(request: Request, db:Session = Depends(get_db)):
 @app.get("/produtos/cadastro", response_class=HTMLResponse)
 def exibir_produtos(request: Request, db: Session = Depends(get_db)):
     categorias = db.query(Categoria).all()
-    return templates.TemplateResponse("cadastro_produto.html", {"request": request, "categorias": categorias})
+    produtos = db.query(Produto).all()
+    return templates.TemplateResponse(request, "cadastro_produto.html", {"request": request, "categorias": categorias, "produtos": produtos})
 
 @app.post("/produtos/salvar")
 def criar_produto(
@@ -40,7 +41,7 @@ def deletar_produtos(
 ):
     produto = db.query(Produto).get(id)
     if produto:
-        db.delete(id)
+        db.delete(produto)
         db.commit()
 
     return RedirectResponse(url="/", status_code=303)
@@ -59,8 +60,7 @@ def criar_categorias(
     nova_categoria = Categoria(nome=nome, descricao=descricao)
     db.add(nova_categoria)
     db.commit()
-
-    return RecursionError(url="/", status_code=303)
+    return RedirectResponse(url="/categorias", status_code=303)
 
 @app.post("/categorias/deletar/{id}")
 def excluir_categoria(
